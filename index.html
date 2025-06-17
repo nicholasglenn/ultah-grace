@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Ulang Tahun, Sayang!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffe6f0, #fddde6);
+      color: #333;
+      text-align: center;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    section {
+      padding: 2rem;
+      display: none;
+    }
+
+    #home-section {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    header {
+      padding: 2rem;
+      background-color: #ff99bb;
+      color: white;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 1.5rem;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .minigame {
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fff0f5;
+      border-radius: 1rem;
+      max-width: 500px;
+    }
+
+    .heart-button {
+      background-color: #ff69b4;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      color: white;
+      border-radius: 999px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: transform 0.1s ease;
+    }
+
+    .heart-button:hover {
+      transform: scale(1.1);
+    }
+
+    .heart-counter {
+      font-size: 2.5rem;
+      color: #e75480;
+      margin: 1rem 0;
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      font-style: italic;
+      color: #777;
+    }
+
+    /* Pop-up Surat */
+    .popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      max-width: 400px;
+      border-radius: 1rem;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fadeInPopup 1s ease forwards;
+    }
+
+    @keyframes fadeInPopup {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .popup-content button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .penutup-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .penutup-text {
+      flex: 1;
+      max-width: 400px;
+      text-align: left;
+    }
+
+    .penutup-img {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .penutup-img img {
+      max-width: 100%;
+      border-radius: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔊 AUDIO -->
+  <audio id="bgmusic" autoplay loop muted>
+    <source src="audio/music.mp3" type="audio/mpeg">
+    Browsermu tidak mendukung audio.
+  </audio>
+
+  <!-- 💌 SURAT CINTA POP-UP -->
+  <div class="popup" id="loveLetter">
+    <div class="popup-content">
+      <h2>Untuk kamu, yang paling aku sayangi 💌</h2>
+      <p>
+        Hari ini adalah hari spesialmu, dan aku bersyukur bisa merayakannya bersamamu.  
+        Terima kasih sudah jadi cahaya di hari-hariku.  
+        Semoga kamu selalu bahagia, sehat, dan tahu bahwa kamu sangat dicintai.
+      </p>
+      <button onclick="closePopup()">Tutup</button>
+    </div>
+  </div>
+
+  <!-- 🏡 HOME SECTION -->
+  <section id="home-section">
+    <header>
+      <h1>Selamat Ulang Tahun, Gracetiar! 🎂💕</h1>
+      <p>Terima kasih sudah menjadi bagian terindah dalam hidupku. Ini hadiah kecil dari aku, semoga kamu suka 🫶</p>
+    </header>
+
+    <div class="gallery">
+      <img src="images/b.jpg" alt="Foto 1">
+      <img src="images/d.jpg" alt="Foto 2">
+      <img src="images/e.jpg" alt="Foto 3">
+      <img src="images/i.jpg" alt="Foto 4">
+    </div>
+
+    <button class="heart-button" onclick="showSection('minigame-section')">💘 Lanjut ke Minigame</button>
+  </section>
+
+  <!-- 🎮 MINIGAME SECTION -->
+  <section id="minigame-section">
+    <div class="minigame">
+      <h2>Seberapa sayang kamu ke aku 💘</h2>
+      <p class="heart-counter" id="counter">0</p>
+      <button class="heart-button" onclick="addHeart()">❤️ Klik Aku!</button>
+    </div>
+
+    <div class="minigame">
+      <h2>Tebak-Tebakan Cinta 😍</h2>
+      <p>Di mana pertama kali kita ketemu?</p>
+      <input type="text" id="answer" placeholder="Format: 30 September 2023" />
+      <button class="heart-button" onclick="checkAnswer()">Cek Jawaban</button>
+      <p id="tebak-result" style="margin-top: 10px;"></p>
+    </div>
+
+    <button class="heart-button" onclick="showSection('penutup-section')">🎁 Lanjut ke Penutup</button>
+  </section>
+
+  <!-- 🎀 PENUTUP SECTION -->
+  <section id="penutup-section">
+    <div class="penutup-container">
+      <div class="penutup-text">
+        <h2>Pesan Terakhir 💞</h2>
+        <p>
+          Aku harap kamu selalu bahagia, tetap semangat mengejar impianmu...  
+          Aku bangga dan sayang banget sama kamu 💗  
+          Jangan pernah lupa: kamu nggak sendirian, aku selalu ada.
+        </p>
+        <button class="heart-button" onclick="showSection('home-section')">🔁 Kembali ke Awal</button>
+      </div>
+      <div class="penutup-img">
+        <img src="images/i.jpg" alt="Foto Akhir" />
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Terima kasih sudah selalu sabar, pengertian, dan penuh cinta. Aku ingin selalu merayakan ulang tahunmu — setiap tahun, selamanya. ❤️
+  </footer>
+
+  <script>
+    // Main Music Play (aktifkan audio saat user pertama kali klik)
+    window.addEventListener('click', () => {
+      const music = document.getElementById('bgmusic');
+      music.muted = false;
+      music.play();
+    });
+
+    // Love Counter
+    let counter = 0;
+    function addHeart() {
+      counter++;
+      document.getElementById('counter').textContent = counter;
+    }
+
+    // Tebak-Tebakan
+    function checkAnswer() {
+      const userInput = document.getElementById('answer').value.trim();
+      const result = document.getElementById('tebak-result');
+      if (userInput === "30 September 2023") {
+        result.textContent = "🎉 Benar banget! Kamu ingat 💖";
+        result.style.color = "green";
+      } else {
+        result.textContent = "Hihi... salah sayang 😜 coba lagi yaa~";
+        result.style.color = "red";
+      }
+    }
+
+    // Pop-up Surat
+    function closePopup() {
+      document.getElementById('loveLetter').style.display = 'none';
+    }
+
+    // Section Navigator
+    function showSection(id) {
+      const sections = ["home-section", "minigame-section", "penutup-section"];
+      sections.forEach(sec => document.getElementById(sec).style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
